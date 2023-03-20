@@ -125,3 +125,93 @@ def generate_map(canvas):
                 canvas_[j, i] = [255, 0 ,0]
             
     return canvas_
+
+# Next moves
+def move_neg_sixty(current_node, step_size):  
+    next_node = []
+    theta = -60
+    next_x = int(round((current_node[0] + step_size * (math.cos((current_node[2] + theta) * (math.pi/180))))))
+    next_y = int(round((current_node[1] + step_size * (math.sin((current_node[2] + theta) * (math.pi/180))))))
+    next_orientation = theta + current_node[2]
+
+    # For negative index in the visited matrix
+    if(next_orientation < 0):
+        next_orientation+=360
+    next_orientation%=360
+    
+    next_node.append(next_x)
+    next_node.append(next_y)
+    next_node.append(next_orientation)
+    return step_size, tuple(next_node)
+
+# Next moves
+def move_neg_thirty(current_node, step_size):  
+    next_node = []
+    theta = -30
+    next_x = int(round((current_node[0] + step_size * (math.cos((current_node[2] + theta) * (math.pi/180))))))
+    next_y = int(round((current_node[1] + step_size * (math.sin((current_node[2] + theta) * (math.pi/180))))))
+    next_orientation = theta + current_node[2]
+    
+    # For negative index in the visited matrix
+    if(next_orientation < 0):
+        next_orientation+=360
+    next_orientation%=360
+    
+    next_node.append(next_x)
+    next_node.append(next_y)
+    next_node.append(next_orientation)
+    return step_size, tuple(next_node)
+
+# Next moves
+def move_zero(current_node, step_size):  
+    next_node = []
+    theta = 0
+    next_x = int(round((current_node[0] + step_size * (math.cos((current_node[2] + theta) * (math.pi/180))))))
+    next_y = int(round((current_node[1] + step_size * (math.sin((current_node[2] + theta) * (math.pi/180))))))
+    next_orientation = theta + current_node[2]
+    
+    # For negative index in the visited matrix
+    if(next_orientation < 0):
+        next_orientation+=360
+    next_orientation%=360
+    
+    next_node.append(next_x)
+    next_node.append(next_y)
+    next_node.append(next_orientation)
+    return step_size, tuple(next_node)
+
+# Next moves
+def move_pos_thirty(current_node, step_size):  
+    next_node = []
+    theta = 30
+    next_x = int(round((current_node[0] + step_size * (math.cos((current_node[2] + theta) * (math.pi/180))))))
+    next_y = int(round((current_node[1] + step_size * (math.sin((current_node[2] + theta) * (math.pi/180))))))
+    next_orientation = theta + current_node[2]
+    
+    # For negative index in the visited matrix
+    if(next_orientation < 0):
+        next_orientation+=360
+    next_orientation%=360
+    
+    next_node.append(next_x)
+    next_node.append(next_y)
+    next_node.append(next_orientation)
+    return step_size, tuple(next_node)
+
+# Next moves
+def move_pos_sixty(current_node, step_size):  
+    next_node = []
+    theta = 60
+    next_x = int(round((current_node[0] + step_size * (math.cos((current_node[2] + theta) * (math.pi/180))))))
+    next_y = int(round((current_node[1] + step_size * (math.sin((current_node[2] + theta) * (math.pi/180))))))
+    next_orientation = theta + current_node[2]
+    
+    # For negative index in the visited matrix
+    if(next_orientation < 0):
+        next_orientation+=360
+    next_orientation%=360
+    
+    next_node.append(next_x)
+    next_node.append(next_y)
+    next_node.append(next_orientation)
+    return step_size, tuple(next_node)
