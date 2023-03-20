@@ -215,3 +215,128 @@ def move_pos_sixty(current_node, step_size):
     next_node.append(next_y)
     next_node.append(next_orientation)
     return step_size, tuple(next_node)
+
+# Function to check the validity of moves made
+def valid_next_steps(current_node, obstacle_map, step_size):
+    valid_neighbors = []
+    neg_sixty = move_neg_sixty(current_node, step_size)
+    neg_thirty = move_neg_thirty(current_node, step_size)
+    zero = move_zero(current_node, step_size)
+    pos_thirty = move_pos_thirty(current_node, step_size)
+    pos_sixty = move_pos_sixty(current_node, step_size)
+    
+    if((neg_sixty[1][0] - 5)< 0 or (neg_sixty[1][0] + 5) > 599 
+       or (neg_sixty[1][1] - 5) < 0 or (neg_sixty[1][1] + 5) > 249
+       or obstacle_map[neg_sixty[1][1] + 5][neg_sixty[1][0] + 5][0]==255
+       or obstacle_map[neg_sixty[1][1] - 5][neg_sixty[1][0] + 5][0]==255
+       or obstacle_map[neg_sixty[1][1] - 5][neg_sixty[1][0] - 5][0]==255
+       or obstacle_map[neg_sixty[1][1] + 5][neg_sixty[1][0] - 5][0]==255
+       or obstacle_map[neg_sixty[1][1] + 5][neg_sixty[1][0]][0]==255
+       or obstacle_map[neg_sixty[1][1] - 5][neg_sixty[1][0]][0]==255
+       or obstacle_map[neg_sixty[1][1]][neg_sixty[1][0] - 5][0]==255
+       or obstacle_map[neg_sixty[1][1]][neg_sixty[1][0] - 5][0]==255
+       or sum(obstacle_map[neg_sixty[1][1] + 5][neg_sixty[1][0] + 5])==765
+       or sum(obstacle_map[neg_sixty[1][1] - 5][neg_sixty[1][0] + 5])==765
+       or sum(obstacle_map[neg_sixty[1][1] - 5][neg_sixty[1][0] - 5])==765
+       or sum(obstacle_map[neg_sixty[1][1] + 5][neg_sixty[1][0] - 5])==765
+       or sum(obstacle_map[neg_sixty[1][1] + 5][neg_sixty[1][0]])==765
+       or sum(obstacle_map[neg_sixty[1][1] - 5][neg_sixty[1][0]])==765
+       or sum(obstacle_map[neg_sixty[1][1]][neg_sixty[1][0] - 5])==765
+       or sum(obstacle_map[neg_sixty[1][1]][neg_sixty[1][0] - 5])==765
+       ):
+        print("-60 move invalid")
+    else:
+        valid_neighbors.append(neg_sixty)
+        
+    if((neg_thirty[1][0] - 5)< 0 or (neg_thirty[1][0] + 5) > 599 
+       or (neg_thirty[1][1] - 5) < 0 or (neg_thirty[1][1] + 5) > 249
+       or obstacle_map[neg_thirty[1][1] + 5][neg_thirty[1][0] + 5][0]==255
+       or obstacle_map[neg_thirty[1][1] + 5][neg_thirty[1][0] - 5][0]==255
+       or obstacle_map[neg_thirty[1][1] - 5][neg_thirty[1][0] + 5][0]==255
+       or obstacle_map[neg_thirty[1][1] - 5][neg_thirty[1][0] - 5][0]==255
+       or obstacle_map[neg_thirty[1][1] + 5][neg_thirty[1][0]][0]==255
+       or obstacle_map[neg_thirty[1][1] - 5][neg_thirty[1][0]][0]==255
+       or obstacle_map[neg_thirty[1][1]][neg_thirty[1][0] + 5][0]==255
+       or obstacle_map[neg_thirty[1][1]][neg_thirty[1][0] - 5][0]==255
+       or sum(obstacle_map[neg_thirty[1][1] + 5][neg_thirty[1][0] + 5])==765
+       or sum(obstacle_map[neg_thirty[1][1] + 5][neg_thirty[1][0] - 5])==765
+       or sum(obstacle_map[neg_thirty[1][1] - 5][neg_thirty[1][0] + 5])==765
+       or sum(obstacle_map[neg_thirty[1][1] - 5][neg_thirty[1][0] - 5])==765
+       or sum(obstacle_map[neg_thirty[1][1] + 5][neg_thirty[1][0]])==765
+       or sum(obstacle_map[neg_thirty[1][1] - 5][neg_thirty[1][0]])==765
+       or sum(obstacle_map[neg_thirty[1][1]][neg_thirty[1][0] + 5])==765
+       or sum(obstacle_map[neg_thirty[1][1]][neg_thirty[1][0] - 5])==765
+       ):
+        print("-30 move invalid")
+    else:
+        valid_neighbors.append(neg_thirty)
+        
+    if((zero[1][0] - 5)< 0 or (zero[1][0] + 5) > 599 
+       or (zero[1][1] - 5) < 0 or (zero[1][1] + 5) > 249
+       or obstacle_map[zero[1][1] + 5][zero[1][0] + 5][0]==255
+       or obstacle_map[zero[1][1] + 5][zero[1][0] - 5][0]==255
+       or obstacle_map[zero[1][1] - 5][zero[1][0] + 5][0]==255
+       or obstacle_map[zero[1][1] - 5][zero[1][0] - 5][0]==255
+       or obstacle_map[zero[1][1]][zero[1][0] + 5][0]==255
+       or obstacle_map[zero[1][1]][zero[1][0] - 5][0]==255
+       or obstacle_map[zero[1][1] + 5][zero[1][0]][0]==255
+       or obstacle_map[zero[1][1] - 5][zero[1][0]][0]==255     
+       or sum(obstacle_map[zero[1][1] + 5][zero[1][0] + 5])==765
+       or sum(obstacle_map[zero[1][1] + 5][zero[1][0] - 5])==765
+       or sum(obstacle_map[zero[1][1] - 5][zero[1][0] + 5])==765
+       or sum(obstacle_map[zero[1][1] - 5][zero[1][0] - 5])==765
+       or sum(obstacle_map[zero[1][1]][zero[1][0] + 5])==765
+       or sum(obstacle_map[zero[1][1]][zero[1][0] - 5])==765
+       or sum(obstacle_map[zero[1][1] + 5][zero[1][0]])==765
+       or sum(obstacle_map[zero[1][1] - 5][zero[1][0]])==765  
+       ):
+        print("0 move invalid")
+    else:
+        valid_neighbors.append(zero)
+        
+    if((pos_thirty[1][0] - 5)< 0 or (pos_thirty[1][0] + 5) > 599 
+       or (pos_thirty[1][1] - 5) < 0 or (pos_thirty[1][1] + 5) > 249
+       or obstacle_map[pos_thirty[1][1] + 5][pos_thirty[1][0] + 5][0]==255
+       or obstacle_map[pos_thirty[1][1] - 5][pos_thirty[1][0] + 5][0]==255
+       or obstacle_map[pos_thirty[1][1] + 5][pos_thirty[1][0] - 5][0]==255
+       or obstacle_map[pos_thirty[1][1] - 5][pos_thirty[1][0] - 5][0]==255
+       or obstacle_map[pos_thirty[1][1]][pos_thirty[1][0] + 5][0]==255
+       or obstacle_map[pos_thirty[1][1]][pos_thirty[1][0] - 5][0]==255
+       or obstacle_map[pos_thirty[1][1] + 5][pos_thirty[1][0]][0]==255
+       or obstacle_map[pos_thirty[1][1] - 5][pos_thirty[1][0]][0]==255
+       or sum(obstacle_map[pos_thirty[1][1] + 5][pos_thirty[1][0] + 5])==765
+       or sum(obstacle_map[pos_thirty[1][1] - 5][pos_thirty[1][0] + 5])==765
+       or sum(obstacle_map[pos_thirty[1][1] + 5][pos_thirty[1][0] - 5])==765
+       or sum(obstacle_map[pos_thirty[1][1] - 5][pos_thirty[1][0] - 5])==765
+       or sum(obstacle_map[pos_thirty[1][1]][pos_thirty[1][0] + 5])==765
+       or sum(obstacle_map[pos_thirty[1][1]][pos_thirty[1][0] - 5])==765
+       or sum(obstacle_map[pos_thirty[1][1] + 5][pos_thirty[1][0]])==765
+       or sum(obstacle_map[pos_thirty[1][1] - 5][pos_thirty[1][0]])==765
+       ):
+        print("30 move invalid")
+    else:
+        valid_neighbors.append(pos_thirty)
+        
+    if((pos_sixty[1][0] - 5)< 0 or (pos_sixty[1][0] + 5) > 599 
+       or (pos_sixty[1][1] - 5) < 0 or (pos_sixty[1][1] + 5) > 249
+       or obstacle_map[pos_sixty[1][1] + 5][pos_sixty[1][0] + 5][0]==255
+       or obstacle_map[pos_sixty[1][1] + 5][pos_sixty[1][0] - 5][0]==255
+       or obstacle_map[pos_sixty[1][1] - 5][pos_sixty[1][0] - 5][0]==255
+       or obstacle_map[pos_sixty[1][1] - 5][pos_sixty[1][0] + 5][0]==255
+       or obstacle_map[pos_sixty[1][1] + 5][pos_sixty[1][0]][0]==255
+       or obstacle_map[pos_sixty[1][1] - 5][pos_sixty[1][0]][0]==255
+       or obstacle_map[pos_sixty[1][1]][pos_sixty[1][0] - 5][0]==255
+       or obstacle_map[pos_sixty[1][1]][pos_sixty[1][0] + 5][0]==255  
+       or sum(obstacle_map[pos_sixty[1][1] + 5][pos_sixty[1][0] + 5])==765
+       or sum(obstacle_map[pos_sixty[1][1] + 5][pos_sixty[1][0] - 5])==765
+       or sum(obstacle_map[pos_sixty[1][1] - 5][pos_sixty[1][0] - 5])==765
+       or sum(obstacle_map[pos_sixty[1][1] - 5][pos_sixty[1][0] + 5])==765
+       or sum(obstacle_map[pos_sixty[1][1] + 5][pos_sixty[1][0]])==765
+       or sum(obstacle_map[pos_sixty[1][1] - 5][pos_sixty[1][0]])==765
+       or sum(obstacle_map[pos_sixty[1][1]][pos_sixty[1][0] - 5])==765
+       or sum(obstacle_map[pos_sixty[1][1]][pos_sixty[1][0] + 5])==765       
+       ):
+        print("60 move invalid")
+    else:
+        valid_neighbors.append(pos_sixty) 
+    return valid_neighbors  
