@@ -340,3 +340,51 @@ def valid_next_steps(current_node, obstacle_map, step_size):
     else:
         valid_neighbors.append(pos_sixty) 
     return valid_neighbors  
+
+def astar_search(obstacle_map):
+    while open_list:
+        current_node = open_list.get()[1]
+        print("current_node: ", current_node)
+        close_list[int(round(current_node[1] * 2)),int(round(current_node[0] * 2)), int(round(current_node[2]/30))] = 2
+        visual_list.append(current_node)
+        goal_reached = False
+        if(math.sqrt((current_node[0] - goal[0])**2 + (current_node[1] - goal[1])**2) < 0.5 and 
+           current_node[2] == goal[2]):
+            goal_reached = True
+            print(goal_reached)
+        else:
+            goal_reached = False
+            print(goal_reached)
+            
+        if (goal_reached):
+            print("Reached the given goal")
+            back_track_path(current_node)
+            break
+        else:
+            valid_neighbors = valid_next_steps(current_node, obstacle_map, step_size)
+            for next_node in valid_neighbors:
+                # print("Next Node: ", next_node)
+                closed = close_list[int(round(next_node[1][1] * 2)),int(round(next_node[1][0] * 2)), int(round(next_node[1][2]/30))]
+                # if the node is already present, ignore it
+                if(closed == 2):
+                    print("visited: ", next_node)
+                    continue    
+                else:
+                    cost_to_next_node = next_node[0]
+                    total_cost_to_node = cost_of_node[current_node] + cost_to_next_node
+                    if(next_node[1] not in cost_of_node or total_cost_to_node < cost_of_node[next_node[1]]):
+                        cost_of_node[next_node[1]] = total_cost_to_node
+                        # Adding Euclidean heuristic
+                        euc_dist = math.sqrt((next_node[1][0] - goal[0])**2 + (next_node[1][1] - goal[1])**2)
+                        cost_with_heuristic = total_cost_to_node + euc_dist       
+                        open_list.put((cost_with_heuristic, next_node[1]))
+                        parent_node[next_node[1]] = current_node   
+                        
+# Function to back track and obtain the shortest path possible
+def back_track_path(current_node):
+    final_node = goal
+    while final_node != None:
+        found_path.append(final_node)
+        final_node = parent_node[final_node]
+    # the path found will be appended in reverse
+    found_path.reverse()
