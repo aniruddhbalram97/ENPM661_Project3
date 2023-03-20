@@ -388,3 +388,41 @@ def back_track_path(current_node):
         final_node = parent_node[final_node]
     # the path found will be appended in reverse
     found_path.reverse()
+    
+############################### MAIN ################################
+# Empty Canvas
+canvas = np.zeros((250, 600, 3), dtype='uint8')
+# Obstacle Map
+obstacle_map = generate_map(canvas)
+# start and goal points
+start, goal = enter_coordinates(obstacle_map)
+
+while(not check_valid_entry(start, goal, obstacle_map)):
+    start, goal = enter_coordinates(obstacle_map)
+
+step_size = int(input("Enter step - size (1 - 10): "))
+if(check_valid_entry(start, goal, obstacle_map)):
+    open_list.put((0, start))
+    parent_node[start] = None # start node has no parent
+    cost_of_node[start] = 0 # start node has no cost
+    
+cv2.imshow("Obstacle Map", obstacle_map)
+cv2.waitKey(6000)
+
+astar_search(obstacle_map)
+
+  # choose codec according to format needed
+fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
+video1 = cv2.VideoWriter('./videos/complete_exploration.avi', fourcc, 60, (600, 250))
+video2 = cv2.VideoWriter('./videos/found_path.avi', fourcc, 60, (600, 250))
+
+for x, y, ori in visual_list:
+    obstacle_map[y, x, 1] = 255
+    video1.write(obstacle_map)
+    
+obstacle_map = generate_map(canvas)
+
+for x, y, ori in found_path:
+    obstacle_map[y, x, 1] = 255
+    cv2.circle(obstacle_map, (x, y), 5, (30, 50, 60))
+    video2.write(obstacle_map)
